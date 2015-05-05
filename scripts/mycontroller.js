@@ -5,7 +5,7 @@ angular.module('InsuranceExplorerApp', ['ngRoute'])
      var currentId = 1;
      var dataService = {};
      
-     $http.get("data/data_1223.json").success(function (data, status, headers, config) {
+     $http.get("data/data_0501.json").success(function (data, status, headers, config) {
         dataset.data = data;
         currentcompany.data = data[currentId];
      });
@@ -46,7 +46,7 @@ angular.module('InsuranceExplorerApp', ['ngRoute'])
         "name":false,
         "weissrank":false,
         "demotechrank":false,
-        "policycount": true,
+        "policycount":true,
         "total_complaints":true,
         "complaintpercentile":false
     }
@@ -92,22 +92,26 @@ angular.module('InsuranceExplorerApp', ['ngRoute'])
                 $chartdata.policycounts.push($scope.companyref.data.q2_2014_policycount);
             }
             if($scope.companyref.data.q3_2014_policycount){
-                $chartdata.quarters.push("2014 Q2");
-                $chartdata.policycounts.push($scope.companyref.data.q2_2014_policycount);
+                $chartdata.quarters.push("2014 Q3");
+                $chartdata.policycounts.push($scope.companyref.data.q3_2014_policycount);
+            }            
+            if($scope.companyref.data.q4_2014_policycount){
+                $chartdata.quarters.push("2014 Q4");
+                $chartdata.policycounts.push($scope.companyref.data.q4_2014_policycount);
             }
             if($chartdata.quarters.length > 1){
                 drawChart('#policycountchart',$chartdata.quarters,'Quarters', $chartdata.policycounts, 'No. of policies', 'Policy Count');
                 $scope.hasCharts=true;
             }
             if($scope.companyref.data.q4_2013_complaintcount && $scope.companyref.data.total_2014_complaintcount){
-                var $complaints = [];
-                $complaints.push($scope.companyref.data.q4_2013_complaintcount);
-                $complaints.push($scope.companyref.data.total_2014_complaintcount);
+                var $actual = [];
+                $actual.push($scope.companyref.data.q4_2013_complaintcount);
+                $actual.push($scope.companyref.data.total_2014_complaintcount);
                 // var $predicted =[0];
                 // $predicted.push($scope.companyref.data.total_2014_complaintcount);
                 drawStacks('#complaintcountchart',['2013','2014'],'No. of Complaints',
                     // $predicted,'Estimated',
-                    $complaints,'Complaint count');
+                    $actual,'Actual','Complaint count');
                 $scope.hasCharts=true;
             }            
             drawGauge('#weissgauge',0,13,14-parseInt($scope.companyref.data.weissrank),$scope.companyref.data.weiss,"Weiss Rating");

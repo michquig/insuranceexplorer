@@ -80,7 +80,7 @@ function drawStacks($selector,$xData,$xName,$y1Data,$y1Name,$y2Data,$y2Name,$tit
                 }
         },
         series: [{
-            name: 'Number of complaints',
+            name: 'Complaints',
             data: $y1Data,
             // color:'#CCC'
         // },{
